@@ -15,12 +15,14 @@ public class RoleController {
     public RoleController(RoleService roleService) {
         this.roleService = roleService;
     }
+
     @PostMapping
-    public Role createRole(@RequestBody RoleInDTO roleInDTO){
+    public Role createRole(@RequestBody RoleInDTO roleInDTO) {
         return this.roleService.createRole(roleInDTO);
     }
+
     @GetMapping
-    public List<Role> findAllRoles(){
+    public List<Role> findAllRoles() {
         return this.roleService.findAllRoles();
     }
 }

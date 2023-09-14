@@ -1,6 +1,7 @@
 package com.itca.cursify.persistece.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.itca.cursify.persistece.entity.enums.RoleStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,7 +32,7 @@ public class Role {
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
-    private List<Role> role = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
 
 
 }

@@ -5,10 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
-@Setter
 @Getter
-public class RoleInDTO {
-
-    private String roleName;  // Nombre del role
-
+@Setter
+public class CategoryInDTO {
+    private String categoryPhoto;
+    private String categoryName;
 }

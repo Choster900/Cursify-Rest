@@ -6,6 +6,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -33,8 +36,26 @@ public class User {
     @JsonIgnore
     private Role role;
 
+    @OneToMany(mappedBy = "creatorUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonIgnore
+    //Lista de cursos que el usuario a creado
+    private List<Course> coursesList = new ArrayList<>();
+
     @Column(name = "created_at_user")
     private LocalDateTime createdAtUser;
     @Column(name = "modified_at_user")
     private LocalDateTime modifiedAtUser;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "enrollment",
+            joinColumns = {
+                    @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "course_id", referencedColumnName = "course_id"),
+            }
+    )
+    @JsonIgnore
+    //Curso de muchos a muchos
+    private Set<Course> enrolledCourses;
 }
