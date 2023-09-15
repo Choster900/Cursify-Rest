@@ -1,7 +1,7 @@
 package com.itca.cursify.mapper;
 
 import com.itca.cursify.persistece.entity.Role;
-import com.itca.cursify.persistece.entity.RoleStatus;
+import com.itca.cursify.persistece.entity.enums.RoleStatus;
 import com.itca.cursify.service.dto.RoleInDTO;
 import org.springframework.stereotype.Component;
 

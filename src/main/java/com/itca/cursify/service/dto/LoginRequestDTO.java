@@ -7,8 +7,7 @@ import lombok.Setter;
 @Data
 @Setter
 @Getter
-public class RoleInDTO {
-
-    private String roleName;  // Nombre del role
-
+public class LoginRequestDTO {
+    private String userEmail;
+    private String userPassword;
 }

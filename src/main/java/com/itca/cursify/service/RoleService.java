@@ -22,6 +22,7 @@ public class RoleService {
         Role role = roleInDTOToRole.map(roleInDTO);
         return this.roleRepository.save(role);
     }
+
     public List<Role> findAllRoles() {
         return this.roleRepository.findAll();
     }

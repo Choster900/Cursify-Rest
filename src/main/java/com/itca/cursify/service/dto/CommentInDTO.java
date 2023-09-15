@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
-@Setter
 @Getter
-public class RoleInDTO {
-
-    private String roleName;  // Nombre del role
-
+@Setter
+public class CommentInDTO {
+    private Long userId;
+    private Long courseId;
+    private String commentText;
 }
