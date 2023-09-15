@@ -46,6 +46,7 @@ public class User {
     @Column(name = "modified_at_user")
     private LocalDateTime modifiedAtUser;
 
+    // De muchos a muchos a tabla enrollment
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "enrollment",
             joinColumns = {
@@ -56,6 +57,24 @@ public class User {
             }
     )
     @JsonIgnore
-    //Curso de muchos a muchos
     private Set<Course> enrolledCourses;
+    // De muchos a muchos a tabla comment
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "comment",
+            joinColumns = {
+                    @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "course_id", referencedColumnName = "course_id"),
+            }
+    )
+    @JsonIgnore
+    private Set<Course> commentCourse;
+
+    @OneToMany(mappedBy = "userExamResult", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonIgnore
+    //Lista de cursos que el usuario a creado
+    private List<ExamResult> examResults = new ArrayList<>();
+
+
 }

@@ -6,6 +6,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,6 +16,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "course")
 public class Course {
 
     @Id
@@ -43,9 +46,17 @@ public class Course {
     @JsonIgnore
     private Set<User> enrolledUsers;
 
+    @ManyToMany(mappedBy = "commentCourse",fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<User> commentCourse;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User creatorUser;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonIgnore
+    private List<Section> sections = new ArrayList<>();
 
 }
