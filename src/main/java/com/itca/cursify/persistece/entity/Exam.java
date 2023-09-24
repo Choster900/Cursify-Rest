@@ -23,7 +23,6 @@ public class Exam {
 
     @ManyToOne
     @JoinColumn(name = "course_id")
-    @JsonIgnore
     private Course course;
 
     @Column(name = "exam_title")

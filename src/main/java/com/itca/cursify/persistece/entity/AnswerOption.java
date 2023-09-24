@@ -26,7 +26,7 @@ public class AnswerOption {
     @JsonIgnore
     private Question question;
 
-    @Column(name = "options_text")
+    @Column(name = "option_text")
     private String optionsText;
     @Column(name = "option_is_correct")
     private Integer optionIsCorrect;

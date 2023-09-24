@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/users")
+@CrossOrigin("*")
 public class UserController {
     private final UserService userService;
 
@@ -17,7 +18,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public User createUser(@RequestBody UserInDTO userInDTO) {
+    public UserWithRoleDTO createUser(@RequestBody UserInDTO userInDTO) {
         return this.userService.createUser(userInDTO);
     }
 
@@ -27,5 +28,11 @@ public class UserController {
         String password = loginRequest.getUserPassword();
         return userService.findUserByEmailAndPassword(email, password);
     }
+
+    @GetMapping("/findUserByIdWithCookie/{userId}")
+    public UserWithRoleDTO findUserByIdWithCookie(@PathVariable Long userId) {
+        return userService.findUserById(userId);
+    }
+
 
 }
