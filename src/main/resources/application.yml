@@ -2,10 +2,12 @@ spring:
   application:
     name: crusify
   datasource:
-    url: jdbc:mysql://localhost:3306/testcursify
+    url: jdbc:mysql://localhost:3306/cursify
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
+server:
+  port: 8080

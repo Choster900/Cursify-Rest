@@ -23,19 +23,28 @@ public class UserService {
         this.userInDTOToUser = userInDTOToUser;
         this.encryptServiceImpl = encryptServiceImpl;
     }
-
-    public User createUser(UserInDTO userInDTO) {
+    public UserWithRoleDTO createUser(UserInDTO userInDTO) {
         User user = userInDTOToUser.map(userInDTO);
-        return this.userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        // Aquí usamos el ID del savedUser para buscar la información completa incluyendo el rol.
+        Optional<User> userOptional = userRepository.findByUserId(savedUser.getUserId());
+        if (userOptional.isPresent()) {
+            User userWithRole = userOptional.get();
+            return new UserWithRoleDTO(
+                    userWithRole.getUserId(),
+                    userWithRole.getUserEmail(),
+                    userWithRole.getRole()
+            );
+        }
+        return null;
     }
 
     public UserWithRoleDTO findUserByEmailAndPassword(String email, String password) {
         Optional<User> userOptional = userRepository.findByUserEmail(email);
-
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             String storedPasswordHash = user.getUserPassword();
-
             if (encryptServiceImpl.verifyPassword(password, storedPasswordHash)) {
                 return new UserWithRoleDTO(
                         user.getUserId(),
@@ -44,7 +53,19 @@ public class UserService {
                 );
             }
         }
+        return null;
+    }
+    public UserWithRoleDTO findUserById(Long id) {
+        Optional<User> userOptional = userRepository.findByUserId(id);
 
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+                return new UserWithRoleDTO(
+                        user.getUserId(),
+                        user.getUserEmail(),
+                        user.getRole()
+                );
+        }
         return null;
     }
 
