@@ -32,5 +32,5 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
-    private List<Category> category = new ArrayList<>();
+    private List<Course> courses = new ArrayList<>();
 }

@@ -2,9 +2,12 @@ package com.itca.cursify.controller;
 
 import com.itca.cursify.persistece.entity.Category;
 import com.itca.cursify.service.CategoryService;
+import com.itca.cursify.service.dto.CategoriesWithCourses;
 import com.itca.cursify.service.dto.CategoryInDTO;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/categories")
@@ -26,6 +29,11 @@ public class CategoryController {
         categoryInDTO.setFile(file);
 
         return this.categoryService.createNewCategory(categoryInDTO);
+    }
+
+    @GetMapping("/findAllCategories/")
+    public List<CategoriesWithCourses> categoriesWithCourses(){
+        return this.categoryService.findAllCategories();
     }
 
 }

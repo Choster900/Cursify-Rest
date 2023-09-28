@@ -25,9 +25,8 @@ public class CategoryInDTOToCategory implements IMapper<CategoryInDTO, Category>
     public Category map(CategoryInDTO in) {
         Category category = new Category();
         category.setCategoryName(in.getCategoryName());
-        category.setCategoryPhoto(in.getCategoryPhoto());
+        category.setCategoryPhoto("/media/" + in.getCategoryPhoto());
         category.setCreatedAtCategory(LocalDate.now());
-
         String path = storageService.store(in.getFile());
         String host = request.getRequestURL().toString().replace(request.getRequestURI(), "");
         /*String url = ServletUriComponentsBuilder
