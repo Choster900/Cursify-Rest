@@ -16,6 +16,8 @@ public class UserWithRoleDTO {
 
     private Long userId;
     private String userEmail;
+    private String userName;
+    private String userLastName;
     private Role role;
 
 }
