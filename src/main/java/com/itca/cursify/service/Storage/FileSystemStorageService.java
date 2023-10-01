@@ -32,10 +32,11 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public String store(MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            return ""; // No hay archivo para almacenar
+        }
+
         try {
-            if (file.isEmpty()) {
-                throw new RuntimeException("Failed to store empty file");
-            }
             String filename = file.getOriginalFilename();
             Path destinationFile = rootLocation.resolve(Paths.get(filename))
                     .normalize().toAbsolutePath();

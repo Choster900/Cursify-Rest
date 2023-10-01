@@ -8,6 +8,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Component
@@ -25,17 +26,13 @@ public class CategoryInDTOToCategory implements IMapper<CategoryInDTO, Category>
     public Category map(CategoryInDTO in) {
         Category category = new Category();
         category.setCategoryName(in.getCategoryName());
+
         category.setCategoryPhoto("/media/" + in.getCategoryPhoto());
-        category.setCreatedAtCategory(LocalDate.now());
+
         String path = storageService.store(in.getFile());
         String host = request.getRequestURL().toString().replace(request.getRequestURI(), "");
-        /*String url = ServletUriComponentsBuilder
-                .fromHttpUrl(host)
-                .path("/media/")
-                .path(path)
-                .toUriString();*/
-        //return Map.of("url",url);
 
+        category.setCreatedAtCategory(LocalDateTime.now());
 
         return category;
     }

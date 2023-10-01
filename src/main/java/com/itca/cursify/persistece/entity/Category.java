@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +27,9 @@ public class Category {
     @Column(name = "category_photo")
     private String categoryPhoto;
     @Column(name = "created_at_category")
-    private LocalDate createdAtCategory;
+    private LocalDateTime createdAtCategory;
     @Column(name = "modified_at_category")
-    private LocalDate modifiedAtCategory;
+    private LocalDateTime modifiedAtCategory;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore

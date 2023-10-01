@@ -33,9 +33,9 @@ public class UserService {
             User userWithRole = userOptional.get();
             return new UserWithRoleDTO(
                     userWithRole.getUserId(),
+                    userWithRole.getUserEmail(),
                     userWithRole.getUserName(),
                     userWithRole.getUserLastName(),
-                    userWithRole.getUserEmail(),
                     userWithRole.getRole()
             );
         }
@@ -50,9 +50,9 @@ public class UserService {
             if (encryptServiceImpl.verifyPassword(password, storedPasswordHash)) {
                 return new UserWithRoleDTO(
                         user.getUserId(),
+                        user.getUserEmail(),
                         user.getUserName(),
                         user.getUserLastName(),
-                        user.getUserEmail(),
                         user.getRole()
                 );
             }

@@ -4,6 +4,7 @@ import com.itca.cursify.persistece.entity.Course;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -16,6 +17,6 @@ public class CategoriesWithCourses {
     private Long categoryId;
     private String categoryName;
     private String categoryPhoto;
-    private LocalDate createdAtCategory;
+    private LocalDateTime createdAtCategory;
     private List<Course> courses;
 }
