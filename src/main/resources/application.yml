@@ -3,6 +3,7 @@ spring:
     name: crusify
   datasource:
     url: jdbc:mysql://root:UnXJ55bdoAGHecNiQOwb@containers-us-west-59.railway.app:7699/railway
+    #url: jdbc:mysql://localhost:3306/cursify
     username: root
     password: UnXJ55bdoAGHecNiQOwb
     driver-class-name: com.mysql.cj.jdbc.Driver
