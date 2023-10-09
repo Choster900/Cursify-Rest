@@ -3,6 +3,7 @@ package com.itca.cursify.controller;
 import com.itca.cursify.persistece.entity.Course;
 import com.itca.cursify.service.CourseService;
 import com.itca.cursify.service.dto.CourseInDTO;
+import com.itca.cursify.service.dto.CourseWithDTO;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,5 +34,9 @@ public class CourseController {
         courseInDTO.setUserId(userId);
 
         return this.courseService.createNewCourse(courseInDTO);
+    }
+    @GetMapping("/findCourseByIdWithDetails/{courseId}")
+    public CourseWithDTO getCourseWithDetail(@PathVariable Long courseId){
+        return this.courseService.getCourseWithDetailsById(courseId);
     }
 }
