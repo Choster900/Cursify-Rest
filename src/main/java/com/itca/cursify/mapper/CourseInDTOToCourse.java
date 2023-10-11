@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Component
 public class CourseInDTOToCourse implements IMapper<CourseInDTO, Course> {
@@ -55,7 +56,7 @@ public class CourseInDTOToCourse implements IMapper<CourseInDTO, Course> {
        String path = storageService.store(in.getFile());
         String host = request.getRequestURL().toString().replace(request.getRequestURI(), "");
 
-        course.setCreatedAtCourse(LocalDate.now());
+        course.setCreatedAtCourse(LocalDateTime.now());
         return course;
     }
 }

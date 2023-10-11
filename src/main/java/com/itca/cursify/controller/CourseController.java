@@ -35,6 +35,32 @@ public class CourseController {
 
         return this.courseService.createNewCourse(courseInDTO);
     }
+    @PutMapping("/{courseId}")
+    public Course modifieCourse(
+            @PathVariable Long courseId,
+            @RequestParam(required = false) MultipartFile file,
+            @RequestParam(required = false) String coursePhoto,
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) String courseDescription,
+            @RequestParam(required = false) String courseName,
+            @RequestParam(required = false) Long userId
+    ){
+
+        CourseInDTO courseInDTO = new CourseInDTO();
+        courseInDTO.setCoursePhoto(coursePhoto);
+        courseInDTO.setFile(file);
+        courseInDTO.setCategoryId(categoryId);
+        courseInDTO.setCourseDescription(courseDescription);
+        courseInDTO.setCourseName(courseName);
+        courseInDTO.setUserId(userId);
+
+        return this.courseService.modifiCourse(courseId,courseInDTO);
+    }
+    @PutMapping("changeState/{courseId}")
+    public Course changeStateCourse(Long courseId){
+        return this.courseService.changeStateCourse(courseId);
+    }
+
     @GetMapping("/findCourseByIdWithDetails/{courseId}")
     public CourseWithDTO getCourseWithDetail(@PathVariable Long courseId){
         return this.courseService.getCourseWithDetailsById(courseId);

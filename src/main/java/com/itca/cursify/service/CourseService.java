@@ -1,16 +1,20 @@
 package com.itca.cursify.service;
 
 import com.itca.cursify.mapper.CourseInDTOToCourse;
+import com.itca.cursify.persistece.entity.Category;
 import com.itca.cursify.persistece.entity.Course;
 import com.itca.cursify.persistece.entity.Section;
 import com.itca.cursify.persistece.entity.SectionContent;
+import com.itca.cursify.persistece.entity.enums.Published;
 import com.itca.cursify.persistece.repository.CourseRepository;
 import com.itca.cursify.service.dto.CourseInDTO;
 import com.itca.cursify.service.dto.CourseWithDTO;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseService {
@@ -26,6 +30,31 @@ public class CourseService {
     public Course createNewCourse(CourseInDTO courseInDTO) {
         Course newCourse = courseInDTOToCourse.map(courseInDTO);
         return this.courseRepository.save(newCourse);
+    }
+
+    public Course modifiCourse(Long courseId, CourseInDTO courseInDTO){
+        Optional<Course> courseOptional = courseRepository.findById(courseId);
+        Course course = courseOptional.get();
+        Category category = course.getCategory();
+        Course updateCourse = courseInDTOToCourse.map(courseInDTO);
+        //Starting to set information
+        course.setCourseName(updateCourse.getCourseName());
+        course.setCategory(category);
+        course.setCourseDescription(updateCourse.getCourseDescription());
+        course.setCoursePhoto(updateCourse.getCoursePhoto());
+        course.setModifiedAtCourse(LocalDateTime.now());
+        return this.courseRepository.save(course);
+    }
+    public Course changeStateCourse(Long courseId){
+        Optional<Course> courseOptional = courseRepository.findById(courseId);
+        Course course = courseOptional.get();
+
+        Published currentState = course.getCoursePublished();//Getting SectionState
+        Published newState = (currentState == Published.PRIVADO) ? Published.PUBLICADO : Published.PRIVADO;
+
+        course.setCoursePublished(newState);
+        course.setModifiedAtCourse(LocalDateTime.now());
+        return courseRepository.save(course);
     }
 
     public CourseWithDTO getCourseWithDetailsById(Long courseId){

@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -38,9 +39,9 @@ public class Course {
     private Category category;
 
     @Column(name = "created_at_course")
-    private LocalDate createdAtCourse;
+    private LocalDateTime createdAtCourse;
     @Column(name = "modified_at_course")
-    private LocalDate modifiedAtCourse;
+    private LocalDateTime modifiedAtCourse;
 
     @ManyToMany(mappedBy = "enrolledCourses",fetch = FetchType.LAZY)
     @JsonIgnore
