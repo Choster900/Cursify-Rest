@@ -2,6 +2,7 @@ package com.itca.cursify.mapper;
 
 import com.itca.cursify.persistece.entity.Course;
 import com.itca.cursify.persistece.entity.Section;
+import com.itca.cursify.persistece.entity.enums.Published;
 import com.itca.cursify.persistece.repository.CourseRepository;
 import com.itca.cursify.service.dto.SectionInDTO;
 import org.springframework.stereotype.Component;
@@ -20,10 +21,12 @@ public class SectionInDTOToSection implements IMapper<SectionInDTO, Section>{
     public Section map(SectionInDTO in) {
         Section section = new Section();
         section.setSectionTitle(in.getSectionTitle());
+        section.setSectionState(Published.PRIVADO);
         Course course = courseRepository.findById(in.getCourseId())
                 .orElseThrow(() -> new IllegalArgumentException("Category no encontrada con ID: " + in.getCourseId()));
 
         section.setCourse(course);
+
         section.setCreatedAtSection(LocalDateTime.now());
         return section;
     }

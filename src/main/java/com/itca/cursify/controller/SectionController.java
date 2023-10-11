@@ -5,10 +5,7 @@ import com.itca.cursify.service.SectionService;
 import com.itca.cursify.service.dto.SectionInDTO;
 import com.itca.cursify.service.dto.UserInDTO;
 import com.itca.cursify.service.dto.UserWithRoleDTO;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/section")
@@ -20,6 +17,15 @@ public class SectionController {
     }
     @PostMapping
     public Section createUser(@RequestBody SectionInDTO sectionInDTO) {
-        return this.sectionService.addSecctionToCourse(sectionInDTO);
+        return this.sectionService.addSectionToCourse(sectionInDTO);
+    }
+    @PutMapping("/{sectionId}")
+    public Section updateSection(@PathVariable Long sectionId, @RequestBody SectionInDTO sectionInDTO) {
+        return sectionService.modifySectionCourse(sectionId, sectionInDTO);
+    }
+
+    @PutMapping("changeState/{sectionId}")
+    public Section updateSectionState(@PathVariable Long sectionId) {
+        return sectionService.changeStateSection(sectionId);
     }
 }

@@ -1,6 +1,7 @@
 package com.itca.cursify.persistece.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.itca.cursify.persistece.entity.enums.Published;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,6 +23,8 @@ public class Section {
     private Long sectionId;
     @Column(name = "section_title")
     private String sectionTitle;
+    @Column(name = "section_state")
+    private Published sectionState;
 
     @ManyToOne
     @JoinColumn(name = "course_id") // Nombre de la columna que contendrá la clave foránea en la tabla Task

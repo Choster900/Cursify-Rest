@@ -1,6 +1,7 @@
 package com.itca.cursify.persistece.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.itca.cursify.persistece.entity.enums.Published;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +25,8 @@ public class SectionContent {
     private String contentType;
     @Column(name = "content_file_name")
     private String contentFileName;
-
+    @Column(name = "content_state")
+    private Published contentState;
     @ManyToOne
     @JoinColumn(name = "section_id") // Nombre de la columna que contendrá la clave foránea en la tabla Task
     @JsonIgnore
