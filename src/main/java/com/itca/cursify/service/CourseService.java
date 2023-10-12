@@ -66,7 +66,9 @@ public class CourseService {
             courseDTO.setCourseName(course.getCourseName());
             courseDTO.setCourseDescription(course.getCourseDescription());
             courseDTO.setCoursePhoto(course.getCoursePhoto());
-
+            courseDTO.setCategory(course.getCategory());
+            courseDTO.setCoursePublished(course.getCoursePublished());
+            courseDTO.setUser(course.getCreatorUser());
             // Mapea las secciones
             List<CourseWithDTO.SectionDTO> sectionDTOList = new ArrayList<>();
             for (Section section : course.getSections()){

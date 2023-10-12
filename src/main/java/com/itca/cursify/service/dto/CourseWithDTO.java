@@ -1,5 +1,8 @@
 package com.itca.cursify.service.dto;
 
+import com.itca.cursify.persistece.entity.Category;
+import com.itca.cursify.persistece.entity.User;
+import com.itca.cursify.persistece.entity.enums.Published;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +17,9 @@ public class CourseWithDTO {
     private String courseName;
     private String courseDescription;
     private String coursePhoto;
-    // Otros campos que quieras incluir
-
+    private Published coursePublished;
+    private Category category; // Object Category
+    private User user; // Object User
     private List<SectionDTO> sections;
 
     // Constructor, getters y setters
@@ -25,7 +29,7 @@ public class CourseWithDTO {
     public static class SectionDTO {
         private Long sectionId;
         private String sectionTitle;
-        // Otros campos que quieras incluir
+        private Published sectionState;
 
         private List<SectionContentDTO> sectionContents;
 
