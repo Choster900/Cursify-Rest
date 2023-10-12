@@ -28,6 +28,7 @@ public class CourseWithDTO {
     @Setter
     public static class SectionDTO {
         private Long sectionId;
+        private Long courseId;
         private String sectionTitle;
         private Published sectionState;
 

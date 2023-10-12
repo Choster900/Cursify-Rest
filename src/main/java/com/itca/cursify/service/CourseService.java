@@ -74,8 +74,9 @@ public class CourseService {
             for (Section section : course.getSections()){
                 CourseWithDTO.SectionDTO sectionDTO = new CourseWithDTO.SectionDTO();
                 sectionDTO.setSectionId(section.getSectionId());
+                sectionDTO.setCourseId(course.getCourseId());
                 sectionDTO.setSectionTitle(section.getSectionTitle());
-
+                sectionDTO.setSectionState(section.getSectionState());
                 // Mapea los contenidos de la sección
                 List<CourseWithDTO.SectionContentDTO> sectionContentDTOList = new ArrayList<>();
                 for (SectionContent content : section.getSectionContents()) {
