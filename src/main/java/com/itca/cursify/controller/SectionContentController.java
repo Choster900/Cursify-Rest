@@ -30,4 +30,23 @@ public class SectionContentController {
         sectionContentDTO.setSectionId(sectionId);
         return this.sectionContentService.addContentInASection(sectionContentDTO);
     }
+    @PutMapping("/{contentId}")
+    public  SectionContent updateContent(
+            @RequestParam(required = false) MultipartFile fileVideoContent,
+            @RequestParam(required = false) String contentName,
+            @RequestParam(required = false) String contentType,
+            @RequestParam(required = false) String contentFileName,
+            @RequestParam("sectionId") Long sectionId,
+            @RequestParam(required = false) Long contentId
+    ){
+        SectionContentDTO sectionContentDTO = new SectionContentDTO();
+        sectionContentDTO.setFileVideoContent(fileVideoContent);
+        sectionContentDTO.setSectionId(sectionId);
+        sectionContentDTO.setContentName(contentName);
+        sectionContentDTO.setContentType(contentType);
+        sectionContentDTO.setContentFileName(contentFileName);
+
+        return this.sectionContentService.modifiContent(contentId,sectionContentDTO);
+    }
+
 }

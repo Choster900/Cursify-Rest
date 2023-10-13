@@ -35,11 +35,11 @@ public class CourseService {
     public Course modifiCourse(Long courseId, CourseInDTO courseInDTO){
         Optional<Course> courseOptional = courseRepository.findById(courseId);
         Course course = courseOptional.get();
-        Category category = course.getCategory();
+        //Category category = course.getCategory();//TODO: When I try to update category does´t work
         Course updateCourse = courseInDTOToCourse.map(courseInDTO);
         //Starting to set information
         course.setCourseName(updateCourse.getCourseName());
-        course.setCategory(category);
+        course.setCategory(updateCourse.getCategory());
         course.setCourseDescription(updateCourse.getCourseDescription());
         course.setCoursePhoto(updateCourse.getCoursePhoto());
         course.setModifiedAtCourse(LocalDateTime.now());

@@ -1,11 +1,12 @@
 spring:
   application:
-    name: crusify
+    name: cursify
   datasource:
-    url: jdbc:mysql://root:UnXJ55bdoAGHecNiQOwb@containers-us-west-59.railway.app:7699/railway
-    #url: jdbc:mysql://localhost:3306/cursify
+    #url: jdbc:mysql://root:UnXJ55bdoAGHecNiQOwb@containers-us-west-59.railway.app:7699/railway
+    url: jdbc:mysql://localhost:3306/cursify
     username: root
-    password: UnXJ55bdoAGHecNiQOwb
+    #password: UnXJ55bdoAGHecNiQOwb
+    password:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
