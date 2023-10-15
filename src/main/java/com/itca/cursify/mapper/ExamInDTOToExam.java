@@ -3,6 +3,7 @@ package com.itca.cursify.mapper;
 import com.itca.cursify.persistece.entity.Course;
 import com.itca.cursify.persistece.entity.Exam;
 import com.itca.cursify.persistece.entity.User;
+import com.itca.cursify.persistece.entity.enums.Published;
 import com.itca.cursify.persistece.repository.CourseRepository;
 import com.itca.cursify.service.dto.ExamInDTO;
 import org.springframework.stereotype.Component;
@@ -27,6 +28,7 @@ public class ExamInDTOToExam implements IMapper<ExamInDTO, Exam> {
         exam.setExamTitle(in.getExamTitle());
         exam.setExamDuration(in.getExamDuration());
         exam.setCreatedAtExam(LocalDateTime.now());
+        exam.setExamStatus(Published.PRIVADO);
         return exam;
     }
 }

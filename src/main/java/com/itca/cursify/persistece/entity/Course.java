@@ -60,4 +60,8 @@ public class Course {
     @JsonIgnore
     private List<Section> sections = new ArrayList<>();
 
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonIgnore
+    private List<Exam> examArrayList = new ArrayList<>();
+
 }

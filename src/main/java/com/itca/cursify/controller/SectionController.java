@@ -16,7 +16,7 @@ public class SectionController {
         this.sectionService = sectionService;
     }
     @PostMapping
-    public Section createUser(@RequestBody SectionInDTO sectionInDTO) {
+    public Section createSection(@RequestBody SectionInDTO sectionInDTO) {
         return this.sectionService.addSectionToCourse(sectionInDTO);
     }
     @PutMapping("/{sectionId}")

@@ -1,6 +1,7 @@
 package com.itca.cursify.persistece.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.itca.cursify.persistece.entity.enums.Published;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,12 +24,15 @@ public class Exam {
 
     @ManyToOne
     @JoinColumn(name = "course_id")
+    @JsonIgnore
     private Course course;
 
     @Column(name = "exam_title")
     private String examTitle;
     @Column(name = "exam_duration")
     private Integer examDuration;
+    @Column(name = "exam_status")
+    private Published examStatus;
     @Column(name = "created_at_exam")
     private LocalDateTime createdAtExam;
     @Column(name = "modified_at_exam")

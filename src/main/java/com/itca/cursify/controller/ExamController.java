@@ -5,6 +5,7 @@ import com.itca.cursify.service.ExamService;
 import com.itca.cursify.service.QuestionService;
 import com.itca.cursify.service.dto.ExamInDTO;
 import com.itca.cursify.service.dto.QuestionsWithAnswers;
+import com.itca.cursify.service.dto.SectionInDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,10 @@ public class ExamController {
     public Exam createExamForCourse(@RequestBody ExamInDTO examInDTO){
         return this.examServices.createNewExam(examInDTO);
     }
-
+    @PutMapping("/{examId}")
+    public Exam updateExamForCourse(@PathVariable Long examId, @RequestBody ExamInDTO examInDTO){
+        return this.examServices.updateExam(examId, examInDTO);
+    }
     @GetMapping("/byExam/{examId}")
     public ResponseEntity<List<QuestionsWithAnswers>> findQuestionsByExamId(@PathVariable Long examId) {
         List<QuestionsWithAnswers> questionsWithAnswersList = questionServices.findQuestionsByExamId(examId);

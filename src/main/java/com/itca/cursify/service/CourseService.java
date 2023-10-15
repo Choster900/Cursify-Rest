@@ -1,10 +1,7 @@
 package com.itca.cursify.service;
 
 import com.itca.cursify.mapper.CourseInDTOToCourse;
-import com.itca.cursify.persistece.entity.Category;
-import com.itca.cursify.persistece.entity.Course;
-import com.itca.cursify.persistece.entity.Section;
-import com.itca.cursify.persistece.entity.SectionContent;
+import com.itca.cursify.persistece.entity.*;
 import com.itca.cursify.persistece.entity.enums.Published;
 import com.itca.cursify.persistece.repository.CourseRepository;
 import com.itca.cursify.service.dto.CourseInDTO;
@@ -35,7 +32,6 @@ public class CourseService {
     public Course modifiCourse(Long courseId, CourseInDTO courseInDTO){
         Optional<Course> courseOptional = courseRepository.findById(courseId);
         Course course = courseOptional.get();
-        //Category category = course.getCategory();//TODO: When I try to update category does´t work
         Course updateCourse = courseInDTOToCourse.map(courseInDTO);
         //Starting to set information
         course.setCourseName(updateCourse.getCourseName());
@@ -69,6 +65,20 @@ public class CourseService {
             courseDTO.setCategory(course.getCategory());
             courseDTO.setCoursePublished(course.getCoursePublished());
             courseDTO.setUser(course.getCreatorUser());
+
+            //Mapear los examenes
+            List<CourseWithDTO.ExamDTO> examDTOList = new ArrayList<>();
+            for (Exam exam : course.getExamArrayList()){
+                CourseWithDTO.ExamDTO examDTO = new CourseWithDTO.ExamDTO();
+                examDTO.setExamId(exam.getExamId());
+                examDTO.setCourseId(course.getCourseId());
+                examDTO.setExamTitle(exam.getExamTitle());
+                examDTO.setExamDuration(exam.getExamDuration());
+                examDTO.setExamStatus(exam.getExamStatus());
+                examDTOList.add(examDTO);
+            }
+            courseDTO.setExams(examDTOList);
+
             // Mapea las secciones
             List<CourseWithDTO.SectionDTO> sectionDTOList = new ArrayList<>();
             for (Section section : course.getSections()){
@@ -82,6 +92,7 @@ public class CourseService {
                 for (SectionContent content : section.getSectionContents()) {
                     CourseWithDTO.SectionContentDTO contentDTO = new CourseWithDTO.SectionContentDTO();
                     contentDTO.setContentId(content.getContentId());
+                    contentDTO.setSectionId(section.getSectionId());
                     contentDTO.setContentName(content.getContentName());
                     contentDTO.setContentType(content.getContentType());
                     contentDTO.setContentFileName(content.getContentFileName());

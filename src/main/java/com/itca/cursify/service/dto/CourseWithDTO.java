@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 @Data
 @Getter
@@ -21,8 +22,8 @@ public class CourseWithDTO {
     private Category category; // Object Category
     private User user; // Object User
     private List<SectionDTO> sections;
+    private List<ExamDTO> exams;
 
-    // Constructor, getters y setters
     @Data
     @Getter
     @Setter
@@ -41,6 +42,8 @@ public class CourseWithDTO {
     @Setter
     public static class SectionContentDTO {
         private Long contentId;
+        private Long sectionId;
+
         private String contentName;
         private String contentType;
         private String contentFileName;
@@ -49,5 +52,16 @@ public class CourseWithDTO {
         // Constructor, getters y setters
     }
 
-    // Otros getters y setters necesarios
+    @Data
+    @Getter
+    @Setter
+    public static class ExamDTO{
+        private Long examId;
+        private Long courseId;
+        private String examTitle;
+        private Integer examDuration;
+        private Published examStatus;
+       // private LocalDateTime createdAtExam;
+
+    }
 }
