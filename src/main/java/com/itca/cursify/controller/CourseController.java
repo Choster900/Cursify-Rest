@@ -7,6 +7,8 @@ import com.itca.cursify.service.dto.CourseWithDTO;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/courses")
 public class CourseController {
@@ -64,5 +66,10 @@ public class CourseController {
     @GetMapping("/findCourseByIdWithDetails/{courseId}")
     public CourseWithDTO getCourseWithDetail(@PathVariable Long courseId){
         return this.courseService.getCourseWithDetailsById(courseId);
+    }
+
+    @GetMapping("/findCourseByUserCreatorWithDetails/{userId}")
+    public List<CourseWithDTO> getCourseWithDetailByUserCreator(@PathVariable Long userId){
+        return this.courseService.getCoursesWithDetailsByCreateUser(userId);
     }
 }

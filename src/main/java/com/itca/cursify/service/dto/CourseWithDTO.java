@@ -19,6 +19,7 @@ public class CourseWithDTO {
     private String courseDescription;
     private String coursePhoto;
     private Published coursePublished;
+    private LocalDateTime createdAtCourse;
     private Category category; // Object Category
     private User user; // Object User
     private List<SectionDTO> sections;

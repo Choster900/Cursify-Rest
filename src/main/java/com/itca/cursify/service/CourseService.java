@@ -108,5 +108,29 @@ public class CourseService {
         }
         return null; // Manejo de caso en el que el curso no se encuentre
     }
+    public List<CourseWithDTO> getCoursesWithDetailsByCreateUser(Long userId){
+        List<Course> courses = courseRepository.findAllByCreatorUserId(userId);
+        List<CourseWithDTO> courseDTOList = new ArrayList<>();
+
+        for (Course course : courses) {
+            CourseWithDTO courseDTO = new CourseWithDTO();
+            // Mapear los detalles del curso
+            // ...
+            courseDTO.setCourseId(course.getCourseId());
+            courseDTO.setCourseName(course.getCourseName());
+            courseDTO.setCourseDescription(course.getCourseDescription());
+            courseDTO.setCoursePhoto(course.getCoursePhoto());
+            courseDTO.setCategory(course.getCategory());
+            courseDTO.setCoursePublished(course.getCoursePublished());
+            courseDTO.setUser(course.getCreatorUser());
+            courseDTO.setCreatedAtCourse(course.getCreatedAtCourse());
+
+            courseDTOList.add(courseDTO);
+        }
+
+        return courseDTOList;
+    }
+
+
 
 }
