@@ -1,5 +1,6 @@
 package com.itca.cursify.service;
 
+import com.itca.cursify.exceptions.ExceptionsCursify;
 import com.itca.cursify.mapper.UserInDTOToUser;
 import com.itca.cursify.persistece.entity.Role;
 import com.itca.cursify.persistece.entity.User;
@@ -7,6 +8,7 @@ import com.itca.cursify.persistece.repository.UserRepository;
 import com.itca.cursify.service.dto.UserInDTO;
 import com.itca.cursify.service.dto.UserWithRoleDTO;
 import com.itca.cursify.service.security.EncryptServiceImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -57,7 +59,7 @@ public class UserService {
                 );
             }
         }
-        return null;
+        throw new ExceptionsCursify("Invalid username or password", HttpStatus.UNAUTHORIZED);
     }
     public UserWithRoleDTO findUserById(Long id) {
         Optional<User> userOptional = userRepository.findByUserId(id);

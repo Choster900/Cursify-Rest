@@ -1,11 +1,14 @@
 package com.itca.cursify.service;
 
+import com.itca.cursify.exceptions.ExceptionsCursify;
 import com.itca.cursify.mapper.CourseInDTOToCourse;
 import com.itca.cursify.persistece.entity.*;
 import com.itca.cursify.persistece.entity.enums.Published;
 import com.itca.cursify.persistece.repository.CourseRepository;
+import com.itca.cursify.persistece.repository.UserRepository;
 import com.itca.cursify.service.dto.CourseInDTO;
 import com.itca.cursify.service.dto.CourseWithDTO;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,10 +20,12 @@ import java.util.Optional;
 public class CourseService {
     private final CourseRepository courseRepository;
     private final CourseInDTOToCourse courseInDTOToCourse;
+    private final UserRepository userRepository;
 
-    public CourseService(CourseRepository courseRepository, CourseInDTOToCourse courseInDTOToCourse) {
+    public CourseService(CourseRepository courseRepository, CourseInDTOToCourse courseInDTOToCourse, UserRepository userRepository) {
         this.courseRepository = courseRepository;
         this.courseInDTOToCourse = courseInDTOToCourse;
+        this.userRepository = userRepository;
     }
 
 
@@ -109,6 +114,10 @@ public class CourseService {
         return null; // Manejo de caso en el que el curso no se encuentre
     }
     public List<CourseWithDTO> getCoursesWithDetailsByCreateUser(Long userId){
+        Optional<User> optionalUser =  this.userRepository.findByUserId(userId);
+        if (optionalUser.isEmpty()){
+            throw new ExceptionsCursify("User not found", HttpStatus.NOT_FOUND);
+        }
         List<Course> courses = courseRepository.findAllByCreatorUserId(userId);
         List<CourseWithDTO> courseDTOList = new ArrayList<>();
 
