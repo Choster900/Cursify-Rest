@@ -6,6 +6,7 @@ import com.itca.cursify.persistece.entity.*;
 import com.itca.cursify.persistece.entity.enums.Published;
 import com.itca.cursify.persistece.repository.CourseRepository;
 import com.itca.cursify.persistece.repository.UserRepository;
+import com.itca.cursify.service.dto.AllCoursesByUser;
 import com.itca.cursify.service.dto.CourseInDTO;
 import com.itca.cursify.service.dto.CourseWithDTO;
 import org.springframework.http.HttpStatus;
@@ -113,6 +114,7 @@ public class CourseService {
         }
         return null; // Manejo de caso en el que el curso no se encuentre
     }
+
     public List<CourseWithDTO> getCoursesWithDetailsByCreateUser(Long userId){
         Optional<User> optionalUser =  this.userRepository.findByUserId(userId);
         if (optionalUser.isEmpty()){
@@ -140,6 +142,25 @@ public class CourseService {
         return courseDTOList;
     }
 
+    public List<AllCoursesByUser> getAllCoursesWithDetails(){
+        List<User> users =  this.userRepository.findAll();
+
+        for (User user : users) {
+            AllCo courseDTO = new CourseWithDTO();
+            // Mapear los detalles del curso
+            // ...
+            courseDTO.setCourseId(course.getCourseId());
+            courseDTO.setCourseName(course.getCourseName());
+            courseDTO.setCourseDescription(course.getCourseDescription());
+            courseDTO.setCoursePhoto(course.getCoursePhoto());
+            courseDTO.setCategory(course.getCategory());
+            courseDTO.setCoursePublished(course.getCoursePublished());
+            courseDTO.setUser(course.getCreatorUser());
+            courseDTO.setCreatedAtCourse(course.getCreatedAtCourse());
+
+            courseDTOList.add(courseDTO);
+        }
+    }
 
 
 }

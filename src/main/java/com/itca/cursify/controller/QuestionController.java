@@ -5,10 +5,8 @@ import com.itca.cursify.persistece.entity.Question;
 import com.itca.cursify.service.QuestionService;
 import com.itca.cursify.service.dto.ExamInDTO;
 import com.itca.cursify.service.dto.QuestionInDTO;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.itca.cursify.service.dto.QuestionWithAnswersDTO;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/questions")
@@ -21,5 +19,13 @@ public class QuestionController {
     @PostMapping
     public Question createQuestion(@RequestBody QuestionInDTO questionInDTO){
         return this.questionService.createQuestionForExam(questionInDTO);
+    }
+    @PostMapping("/withAnswers")
+    public Question createQuestionWithMultipleAnswer(@RequestBody QuestionWithAnswersDTO questionWithAnswersDTO){
+        return this.questionService.createQuestionMultiplesAnswer(questionWithAnswersDTO);
+    }
+    @PutMapping("/withAnswer/{questionId}")
+    public Question update(@RequestParam Long questionId, @RequestBody QuestionWithAnswersDTO questionWithAnswersDTO ){
+        return this.questionService.updateQuestionWithAnswers(questionId,questionWithAnswersDTO);
     }
 }

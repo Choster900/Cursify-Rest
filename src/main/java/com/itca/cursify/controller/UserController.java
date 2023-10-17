@@ -5,6 +5,7 @@ import com.itca.cursify.service.UserService;
 import com.itca.cursify.service.dto.LoginRequestDTO;
 import com.itca.cursify.service.dto.UserInDTO;
 import com.itca.cursify.service.dto.UserWithRoleDTO;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

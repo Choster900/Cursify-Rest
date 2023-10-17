@@ -4,6 +4,8 @@ import com.itca.cursify.persistece.entity.Course;
 import com.itca.cursify.service.CourseService;
 import com.itca.cursify.service.dto.CourseInDTO;
 import com.itca.cursify.service.dto.CourseWithDTO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,11 +13,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/courses")
+@Api(value = "Controlador de Ejemplo", description = "Operaciones relacionadas con Ejemplo")
 public class CourseController {
     private final CourseService courseService;
 
     public CourseController(CourseService courseService) {
         this.courseService = courseService;
+    }
+    @GetMapping
+    public List<CourseWithDTO> getAllCourseWithDetail(){
+        return this.courseService.getAllCoursesWithDetails();
     }
     @PostMapping
     public Course createCourse(
@@ -38,6 +45,7 @@ public class CourseController {
         return this.courseService.createNewCourse(courseInDTO);
     }
     @PutMapping("/{courseId}")
+    @ApiOperation(value = "Obtener Ejemplo", notes = "Obtiene un ejemplo")
     public Course modifieCourse(
             @PathVariable Long courseId,
             @RequestParam(required = false) MultipartFile file,
@@ -72,4 +80,5 @@ public class CourseController {
     public List<CourseWithDTO> getCourseWithDetailByUserCreator(@PathVariable Long userId){
         return this.courseService.getCoursesWithDetailsByCreateUser(userId);
     }
+
 }
