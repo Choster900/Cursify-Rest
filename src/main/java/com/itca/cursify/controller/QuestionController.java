@@ -24,8 +24,8 @@ public class QuestionController {
     public Question createQuestionWithMultipleAnswer(@RequestBody QuestionWithAnswersDTO questionWithAnswersDTO){
         return this.questionService.createQuestionMultiplesAnswer(questionWithAnswersDTO);
     }
-    @PutMapping("/withAnswer/{questionId}")
+    /*@PutMapping("/withAnswer/{questionId}")
     public Question update(@RequestParam Long questionId, @RequestBody QuestionWithAnswersDTO questionWithAnswersDTO ){
         return this.questionService.updateQuestionWithAnswers(questionId,questionWithAnswersDTO);
-    }
+    }*/
 }

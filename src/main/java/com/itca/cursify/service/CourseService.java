@@ -125,8 +125,7 @@ public class CourseService {
 
         for (Course course : courses) {
             CourseWithDTO courseDTO = new CourseWithDTO();
-            // Mapear los detalles del curso
-            // ...
+
             courseDTO.setCourseId(course.getCourseId());
             courseDTO.setCourseName(course.getCourseName());
             courseDTO.setCourseDescription(course.getCourseDescription());
@@ -144,22 +143,32 @@ public class CourseService {
 
     public List<AllCoursesByUser> getAllCoursesWithDetails(){
         List<User> users =  this.userRepository.findAll();
-
+        List<AllCoursesByUser> completeQueryUsersWithCourses = new ArrayList<>();
         for (User user : users) {
-            AllCo courseDTO = new CourseWithDTO();
-            // Mapear los detalles del curso
-            // ...
-            courseDTO.setCourseId(course.getCourseId());
-            courseDTO.setCourseName(course.getCourseName());
-            courseDTO.setCourseDescription(course.getCourseDescription());
-            courseDTO.setCoursePhoto(course.getCoursePhoto());
-            courseDTO.setCategory(course.getCategory());
-            courseDTO.setCoursePublished(course.getCoursePublished());
-            courseDTO.setUser(course.getCreatorUser());
-            courseDTO.setCreatedAtCourse(course.getCreatedAtCourse());
-
-            courseDTOList.add(courseDTO);
+            AllCoursesByUser allCourses = new AllCoursesByUser();
+            allCourses.setUserId(user.getUserId());
+            allCourses.setUserEmail(user.getUserEmail());
+            allCourses.setUserName(user.getUserName());
+            allCourses.setUserLastName(user.getUserLastName());
+            allCourses.setRole(user.getRole());
+            List<AllCoursesByUser.allCoursesDTO> allCoursesList = new ArrayList<>();
+            for (Course course : user.getCoursesList()){
+                AllCoursesByUser.allCoursesDTO allCoursesByUser = new AllCoursesByUser.allCoursesDTO();
+                allCoursesByUser.setCourseId(course.getCourseId());
+                allCoursesByUser.setCourseName(course.getCourseName());
+                allCoursesByUser.setCoursePublished(course.getCoursePublished());
+                allCoursesByUser.setCoursePhoto(course.getCoursePhoto());
+                allCoursesByUser.setCoursePublished(course.getCoursePublished());
+                allCoursesByUser.setCategory(course.getCategory());
+                allCoursesByUser.setUser(course.getCreatorUser());
+                allCoursesByUser.setCreatedAtCourse(course.getCreatedAtCourse());
+                allCoursesList.add(allCoursesByUser);// Add course to arraylist
+            }
+            allCourses.setCoursesByUser(allCoursesList);
+            completeQueryUsersWithCourses.add(allCourses);
         }
+        return completeQueryUsersWithCourses;
+
     }
 
 

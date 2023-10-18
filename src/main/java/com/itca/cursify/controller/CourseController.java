@@ -2,6 +2,7 @@ package com.itca.cursify.controller;
 
 import com.itca.cursify.persistece.entity.Course;
 import com.itca.cursify.service.CourseService;
+import com.itca.cursify.service.dto.AllCoursesByUser;
 import com.itca.cursify.service.dto.CourseInDTO;
 import com.itca.cursify.service.dto.CourseWithDTO;
 import io.swagger.annotations.Api;
@@ -21,7 +22,7 @@ public class CourseController {
         this.courseService = courseService;
     }
     @GetMapping
-    public List<CourseWithDTO> getAllCourseWithDetail(){
+    public List<AllCoursesByUser> getAllCourseWithDetail(){
         return this.courseService.getAllCoursesWithDetails();
     }
     @PostMapping

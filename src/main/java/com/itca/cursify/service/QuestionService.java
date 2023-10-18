@@ -49,7 +49,7 @@ public class QuestionService {
         return  this.questionRepository.save(question);
     }
 
-    public Question updateQuestionWithAnswers(Long questionId, QuestionWithAnswersDTO questionWithAnswersDTO) {
+   /* public Question updateQuestionWithAnswers(Long questionId, QuestionWithAnswersDTO questionWithAnswersDTO) {
         Question question;
 
         if (questionId != null) {
@@ -92,6 +92,6 @@ public class QuestionService {
         question.setAnswerOptions(answerOptionList);
 
         return questionRepository.save(question);
-    }
+    }*/
 
 }

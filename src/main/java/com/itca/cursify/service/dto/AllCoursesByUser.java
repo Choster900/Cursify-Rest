@@ -2,6 +2,7 @@ package com.itca.cursify.service.dto;
 
 import com.itca.cursify.persistece.entity.Category;
 import com.itca.cursify.persistece.entity.Role;
+import com.itca.cursify.persistece.entity.User;
 import com.itca.cursify.persistece.entity.enums.Published;
 import lombok.Data;
 
@@ -16,7 +17,7 @@ public class AllCoursesByUser {
     private String userLastName;
     private String userEmail;
     private Role role;
-    private List<allCoursesDTO> answers;
+    private List<allCoursesDTO> coursesByUser;
 
     @Data
     public static class allCoursesDTO {
@@ -26,6 +27,7 @@ public class AllCoursesByUser {
         private String coursePhoto;
         private Published coursePublished;
         private Category category;
+        private User user;
         private LocalDateTime createdAtCourse;
     }
 
