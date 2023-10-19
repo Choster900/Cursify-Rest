@@ -30,14 +30,9 @@ public class ExamController {
         return this.examServices.updateExam(examId, examInDTO);
     }
     @GetMapping("/byExam/{examId}")
-    public ResponseEntity<List<QuestionsWithAnswers>> findQuestionsByExamId(@PathVariable Long examId) {
-        List<QuestionsWithAnswers> questionsWithAnswersList = questionServices.findQuestionsByExamId(examId);
+    public List<QuestionsWithAnswers> findQuestionsByExamId(@PathVariable Long examId) {
+            return  this.questionServices.findQuestionsByExamId(examId);
 
-        if (questionsWithAnswersList.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(questionsWithAnswersList);
-        }
     }
 
 }

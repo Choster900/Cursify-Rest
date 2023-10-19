@@ -28,6 +28,7 @@ public class ExamService {
         Exam exam = this.examInDTOToExam.map(examInDTO);
         return this.examRepository.save(exam);
     }
+
     public Exam updateExam(Long examId, ExamInDTO examInDTO){
         Optional<Exam> examOptional = examRepository.findById(examId);
 

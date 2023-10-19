@@ -20,6 +20,10 @@ public class QuestionController {
     public Question createQuestion(@RequestBody QuestionInDTO questionInDTO){
         return this.questionService.createQuestionForExam(questionInDTO);
     }
+    @PutMapping
+    public Question updateQuestion(@RequestParam Long questionId, @RequestBody QuestionInDTO questionInDTO) {
+        return this.questionService.updateQuestionForExam(questionId,questionInDTO);
+    }
     @PostMapping("/withAnswers")
     public Question createQuestionWithMultipleAnswer(@RequestBody QuestionWithAnswersDTO questionWithAnswersDTO){
         return this.questionService.createQuestionMultiplesAnswer(questionWithAnswersDTO);

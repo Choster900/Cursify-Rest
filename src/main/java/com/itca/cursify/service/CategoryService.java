@@ -28,19 +28,12 @@ public class CategoryService {
     }
     public Category modifyCategory(Long categoryId, CategoryInDTO categoryInDTO) {
         Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
-
-
             Category existingCategory = categoryOptional.get();
-
-            // Utiliza el mapeador para actualizar los campos de la categoría existente
             Category updatedCategory = categoryInDTOToCategory.map(categoryInDTO);
-
-            // Copia los campos actualizados a la categoría existente
             existingCategory.setCategoryName(updatedCategory.getCategoryName());
             existingCategory.setCategoryPhoto(updatedCategory.getCategoryPhoto());
             existingCategory.setModifiedAtCategory(LocalDateTime.now());
             return categoryRepository.save(existingCategory);
-
     }
 
     public List<CategoriesWithCourses> findAllCategories() {
@@ -49,7 +42,6 @@ public class CategoryService {
 
         for (Category category : categories) {
             List<Course> courses = category.getCourses();
-
             CategoriesWithCourses categoriesWithCoursesDTO = new CategoriesWithCourses();
             categoriesWithCoursesDTO.setCategoryId(category.getCategoryId());
             categoriesWithCoursesDTO.setCategoryName(category.getCategoryName());

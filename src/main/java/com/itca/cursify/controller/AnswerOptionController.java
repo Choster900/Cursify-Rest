@@ -3,10 +3,7 @@ package com.itca.cursify.controller;
 import com.itca.cursify.persistece.entity.AnswerOption;
 import com.itca.cursify.service.AnswerOptionService;
 import com.itca.cursify.service.dto.AnswerOptionDTO;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/answersOptions")
@@ -19,5 +16,9 @@ public class AnswerOptionController {
     @PostMapping
     public AnswerOption addAnswerOptionInQuestion(@RequestBody AnswerOptionDTO answerOptionDTO){
         return this.answerOptionService.addOptionInQuestion(answerOptionDTO);
+    }
+    @PutMapping
+    public AnswerOption updateAnswerOptionInQuestion(@RequestParam Long optionId,@RequestBody AnswerOptionDTO answerOptionDTO){
+        return this.answerOptionService.updateOptionInQuestion(optionId,answerOptionDTO);
     }
 }

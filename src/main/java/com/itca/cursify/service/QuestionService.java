@@ -6,13 +6,16 @@ import com.itca.cursify.persistece.entity.AnswerOption;
 import com.itca.cursify.persistece.entity.Question;
 import com.itca.cursify.persistece.repository.AnswerOptionRepository;
 import com.itca.cursify.persistece.repository.QuestionRepository;
+import com.itca.cursify.service.dto.AllCoursesByUser;
 import com.itca.cursify.service.dto.QuestionInDTO;
 import com.itca.cursify.service.dto.QuestionWithAnswersDTO;
 import com.itca.cursify.service.dto.QuestionsWithAnswers;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuestionService {
@@ -30,16 +33,39 @@ public class QuestionService {
         Question question = this.questionInDTOToQuestion.map(questionInDTO);
         return this.questionRepository.save(question);
     }
+    public Question updateQuestionForExam(Long questionId ,QuestionInDTO questionInDTO){
+        Optional<Question> questionOptional = this.questionRepository.findById(questionId);
+        Question question = questionOptional.get();
+        Question questionUpdate = this.questionInDTOToQuestion.map(questionInDTO);
+        question.setExamQuestions(questionUpdate.getExamQuestions());
+        question.setQuestionText(questionUpdate.getQuestionText());
+        question.setModifiedAtQuestion(LocalDateTime.now());
+
+        return this.questionRepository.save(question);
+    }
     public List<QuestionsWithAnswers> findQuestionsByExamId(Long examId) {
         List<Question> questionsList = questionRepository.findByExamQuestionsExamId(examId);
-        List<QuestionsWithAnswers> questionsWithAnswersList = new ArrayList<>();
 
+        List<QuestionsWithAnswers> questionsWithAnswersList = new ArrayList<>();
         for (Question question : questionsList) {
-            questionsWithAnswersList.add(new QuestionsWithAnswers(
-                    question.getQuestionId(),
-                    question.getQuestionText(),
-                    question.getAnswerOptions()
-            ));
+            QuestionsWithAnswers questions = new QuestionsWithAnswers();
+            questions.setQuestionId(question.getQuestionId());
+            questions.setExam(question.getExamQuestions());
+            questions.setQuestionText(question.getQuestionText());
+
+            List<QuestionsWithAnswers.AnswerOption> answerOptionList = new ArrayList<>();
+            for (AnswerOption answerOption : question.getAnswerOptions()){
+                QuestionsWithAnswers.AnswerOption allAnswer = new QuestionsWithAnswers.AnswerOption();
+                allAnswer.setOptionId(answerOption.getOptionId());
+                allAnswer.setQuestionId(question.getQuestionId());
+                allAnswer.setOptionsText(answerOption.getOptionsText());
+                allAnswer.setOptionIsCorrect(answerOption.getOptionIsCorrect());
+
+                answerOptionList.add(allAnswer);
+            }
+            questions.setAnswerOptionList(answerOptionList);
+            questionsWithAnswersList.add(questions);
+
         }
         return questionsWithAnswersList;
     }
