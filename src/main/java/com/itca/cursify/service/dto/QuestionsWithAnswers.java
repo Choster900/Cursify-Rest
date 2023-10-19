@@ -27,7 +27,7 @@ public class QuestionsWithAnswers {
     public static class AnswerOption{
         private Long optionId;
         private Long questionId;
-        private String optionsText;
+        private String optionText;
         private Integer optionIsCorrect;
     }
 }

@@ -34,7 +34,7 @@ public class QuestionAnswerInDTOToMultiInsert implements IMapper<QuestionWithAns
 
         for (QuestionWithAnswersDTO.AnswerDTO answerDTO : answerDTOList) {
             AnswerOption answerOption = new AnswerOption();
-            answerOption.setOptionsText(answerDTO.getOptionText());
+            answerOption.setOptionText(answerDTO.getOptionText());
             answerOption.setOptionIsCorrect(answerDTO.getOptionIsCorrect());
 
             answerOption.setQuestion(question);

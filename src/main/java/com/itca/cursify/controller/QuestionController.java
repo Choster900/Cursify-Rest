@@ -20,7 +20,7 @@ public class QuestionController {
     public Question createQuestion(@RequestBody QuestionInDTO questionInDTO){
         return this.questionService.createQuestionForExam(questionInDTO);
     }
-    @PutMapping
+    @PutMapping("/{questionId}")
     public Question updateQuestion(@RequestParam Long questionId, @RequestBody QuestionInDTO questionInDTO) {
         return this.questionService.updateQuestionForExam(questionId,questionInDTO);
     }

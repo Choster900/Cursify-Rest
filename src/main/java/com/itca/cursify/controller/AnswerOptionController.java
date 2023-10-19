@@ -17,8 +17,9 @@ public class AnswerOptionController {
     public AnswerOption addAnswerOptionInQuestion(@RequestBody AnswerOptionDTO answerOptionDTO){
         return this.answerOptionService.addOptionInQuestion(answerOptionDTO);
     }
-    @PutMapping
-    public AnswerOption updateAnswerOptionInQuestion(@RequestParam Long optionId,@RequestBody AnswerOptionDTO answerOptionDTO){
+    @PutMapping("/{optionId}")
+    public AnswerOption updateAnswerOptionInQuestion(@PathVariable Long optionId,
+                                                     @RequestBody AnswerOptionDTO answerOptionDTO){
         return this.answerOptionService.updateOptionInQuestion(optionId,answerOptionDTO);
     }
 }

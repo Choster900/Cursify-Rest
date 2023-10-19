@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AnswerOptionDTO {
-    private String optionsText;
+    private String optionText;
     private Integer optionIsCorrect;
     private Long questionId;
 }

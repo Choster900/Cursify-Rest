@@ -20,7 +20,7 @@ public class AnswerOptionDTOToAnswerOption implements IMapper<AnswerOptionDTO, A
     @Override
     public AnswerOption map(AnswerOptionDTO in) {
         AnswerOption answerOption = new AnswerOption();
-        answerOption.setOptionsText(in.getOptionsText());
+        answerOption.setOptionText(in.getOptionText());
         answerOption.setOptionIsCorrect(in.getOptionIsCorrect());
         Question question = questionRepository.findById(in.getQuestionId())
                 .orElseThrow(() -> new IllegalStateException("User not found"));

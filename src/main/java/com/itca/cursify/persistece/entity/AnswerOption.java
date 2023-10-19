@@ -27,7 +27,7 @@ public class AnswerOption {
     private Question question;
 
     @Column(name = "option_text")
-    private String optionsText;
+    private String optionText;
     @Column(name = "option_is_correct")
     private Integer optionIsCorrect;
     @Column(name = "created_at_option")

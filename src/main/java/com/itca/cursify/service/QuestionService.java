@@ -58,7 +58,7 @@ public class QuestionService {
                 QuestionsWithAnswers.AnswerOption allAnswer = new QuestionsWithAnswers.AnswerOption();
                 allAnswer.setOptionId(answerOption.getOptionId());
                 allAnswer.setQuestionId(question.getQuestionId());
-                allAnswer.setOptionsText(answerOption.getOptionsText());
+                allAnswer.setOptionText(answerOption.getOptionText());
                 allAnswer.setOptionIsCorrect(answerOption.getOptionIsCorrect());
 
                 answerOptionList.add(allAnswer);

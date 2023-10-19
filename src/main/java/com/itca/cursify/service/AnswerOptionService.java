@@ -25,7 +25,7 @@ public class AnswerOptionService {
         Optional<AnswerOption> answerOptionOptional = this.answerOptionRepository.findById(optionId);
         AnswerOption answerOption = answerOptionOptional.get();
         AnswerOption answerUpdate = this.answerOptionDTOToAnswerOption.map(answerOptionDTO);
-        answerOption.setOptionsText(answerUpdate.getOptionsText());
+        answerOption.setOptionText(answerUpdate.getOptionText());
         answerOption.setQuestion(answerUpdate.getQuestion());
         answerOption.setOptionIsCorrect(answerUpdate.getOptionIsCorrect());
         answerOption.setModifiedAtOption(LocalDateTime.now());
