@@ -22,4 +22,8 @@ public class AnswerOptionController {
                                                      @RequestBody AnswerOptionDTO answerOptionDTO){
         return this.answerOptionService.updateOptionInQuestion(optionId,answerOptionDTO);
     }
+    @DeleteMapping("/{optionId}")
+    public void deleteOption(@PathVariable Long optionId){
+         this.answerOptionService.deleteById(optionId);
+    }
 }

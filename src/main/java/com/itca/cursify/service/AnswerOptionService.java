@@ -21,6 +21,9 @@ public class AnswerOptionService {
         AnswerOption answerOption = answerOptionDTOToAnswerOption.map(answerOptionDTO);
         return this.answerOptionRepository.save(answerOption);
     }
+    public void  deleteById(Long optionId){
+        this.answerOptionRepository.deleteById(optionId);
+    }
     public AnswerOption updateOptionInQuestion(Long optionId,AnswerOptionDTO answerOptionDTO){
         Optional<AnswerOption> answerOptionOptional = this.answerOptionRepository.findById(optionId);
         AnswerOption answerOption = answerOptionOptional.get();
