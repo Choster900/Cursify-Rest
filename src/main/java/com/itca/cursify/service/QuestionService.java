@@ -75,6 +75,10 @@ public class QuestionService {
         return  this.questionRepository.save(question);
     }
 
+    public void  deleteById(Long questionId){
+        this.questionRepository.deleteById(questionId);
+    }
+
    /* public Question updateQuestionWithAnswers(Long questionId, QuestionWithAnswersDTO questionWithAnswersDTO) {
         Question question;
 

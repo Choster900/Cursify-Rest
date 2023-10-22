@@ -21,12 +21,16 @@ public class QuestionController {
         return this.questionService.createQuestionForExam(questionInDTO);
     }
     @PutMapping("/{questionId}")
-    public Question updateQuestion(@RequestParam Long questionId, @RequestBody QuestionInDTO questionInDTO) {
+    public Question updateQuestion(@PathVariable Long questionId, @RequestBody QuestionInDTO questionInDTO) {
         return this.questionService.updateQuestionForExam(questionId,questionInDTO);
     }
     @PostMapping("/withAnswers")
     public Question createQuestionWithMultipleAnswer(@RequestBody QuestionWithAnswersDTO questionWithAnswersDTO){
         return this.questionService.createQuestionMultiplesAnswer(questionWithAnswersDTO);
+    }
+    @DeleteMapping("/{optionId}")
+    public void deleteOption(@PathVariable Long optionId){
+        this.questionService.deleteById(optionId);
     }
     /*@PutMapping("/withAnswer/{questionId}")
     public Question update(@RequestParam Long questionId, @RequestBody QuestionWithAnswersDTO questionWithAnswersDTO ){

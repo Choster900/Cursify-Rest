@@ -5,11 +5,10 @@ import com.itca.cursify.service.ExamService;
 import com.itca.cursify.service.QuestionService;
 import com.itca.cursify.service.dto.ExamInDTO;
 import com.itca.cursify.service.dto.QuestionsWithAnswers;
-import com.itca.cursify.service.dto.SectionInDTO;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/exams")
@@ -33,6 +32,10 @@ public class ExamController {
     public List<QuestionsWithAnswers> findQuestionsByExamId(@PathVariable Long examId) {
             return  this.questionServices.findQuestionsByExamId(examId);
 
+    }
+    @GetMapping("/getInformationExamByExamId/{examId}")
+    public Optional<Exam> getByExamId(@PathVariable Long examId) {
+        return this.examServices.getExamById(examId);
     }
 
 }
