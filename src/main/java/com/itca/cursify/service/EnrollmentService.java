@@ -6,6 +6,9 @@ import com.itca.cursify.persistece.repository.EnrollmentRepository;
 import com.itca.cursify.service.dto.EnrollmentInDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class EnrollmentService {
     private final EnrollmentRepository enrollmentRepository;
@@ -17,5 +20,8 @@ public class EnrollmentService {
     public Enrollment enrollUserInCourse(EnrollmentInDTO enrollmentInDTO){
         Enrollment enrollment = this.enrollmentInDTOToEnrollment.map(enrollmentInDTO);
         return this.enrollmentRepository.save(enrollment);
+    }
+    public Optional<Enrollment> getEnrollmentByUserIdAndCourseId(Long userId, Long courseId) {
+        return enrollmentRepository.findByUserUserIdAndCourseCourseId(userId, courseId);
     }
 }
