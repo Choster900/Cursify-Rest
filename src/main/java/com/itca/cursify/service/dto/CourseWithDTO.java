@@ -1,6 +1,7 @@
 package com.itca.cursify.service.dto;
 
 import com.itca.cursify.persistece.entity.Category;
+import com.itca.cursify.persistece.entity.Exam;
 import com.itca.cursify.persistece.entity.User;
 import com.itca.cursify.persistece.entity.enums.Published;
 import lombok.Data;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 @Data
 @Getter
@@ -63,6 +65,21 @@ public class CourseWithDTO {
         private Integer examDuration;
         private Published examStatus;
        // private LocalDateTime createdAtExam;
+       private List<ExamResultInDTO> examResultInDTOS;
+
+    }
+
+    @Data
+    @Getter
+    @Setter
+    public static class ExamResultInDTO {
+        private Long resultId;
+        private User user;
+        private Integer resultScore;
+        private Double resultGrade;
+        private Date resultCompletionDate;
+        private LocalDateTime createdAtResult;
+
 
     }
 }

@@ -81,6 +81,18 @@ public class CourseService {
                 examDTO.setExamTitle(exam.getExamTitle());
                 examDTO.setExamDuration(exam.getExamDuration());
                 examDTO.setExamStatus(exam.getExamStatus());
+
+                List<CourseWithDTO.ExamResultInDTO> examResultInDTOS = new ArrayList<>();
+                for (ExamResult result : exam.getExamResults()){
+                    CourseWithDTO.ExamResultInDTO resultDTO = new CourseWithDTO.ExamResultInDTO();
+                    resultDTO.setResultId(result.getResultId());
+                    resultDTO.setUser(result.getUserExamResult());
+                    resultDTO.setResultGrade(result.getResultGrade());
+                    resultDTO.setResultScore(result.getResultScore());
+                    resultDTO.setCreatedAtResult(result.getCreatedAtResult());
+                    examResultInDTOS.add(resultDTO);
+                }
+                examDTO.setExamResultInDTOS(examResultInDTOS);
                 examDTOList.add(examDTO);
             }
             courseDTO.setExams(examDTOList);

@@ -32,9 +32,9 @@ public class ExamResult {
     private User userExamResult;
 
     @Column(name = "result_score")
-    private int resultScore;
+    private Integer resultScore;
     @Column(name = "result_grade")
-    private int resultGrade;
+    private Double resultGrade;
     @Column(name = "result_completion_date")
     private Date resultCompletionDate;
     @Column(name = "created_at_result")

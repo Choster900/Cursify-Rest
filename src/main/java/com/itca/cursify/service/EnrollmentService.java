@@ -6,6 +6,7 @@ import com.itca.cursify.persistece.repository.EnrollmentRepository;
 import com.itca.cursify.service.dto.EnrollmentInDTO;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,5 +24,9 @@ public class EnrollmentService {
     }
     public Optional<Enrollment> getEnrollmentByUserIdAndCourseId(Long userId, Long courseId) {
         return enrollmentRepository.findByUserUserIdAndCourseCourseId(userId, courseId);
+    }
+    @Transactional
+    public void  unenrollUserFromCourse(Long userId, Long courseId) {
+        enrollmentRepository.deleteByUserUserIdAndCourseCourseId(userId, courseId);
     }
 }

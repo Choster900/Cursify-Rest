@@ -22,6 +22,9 @@ public class EnrollmentController {
     @GetMapping("isEnroll/{userId}/{courseId}")
     public Optional<Enrollment> findEnrollByUserIdAndCourseId(@PathVariable Long userId, @PathVariable Long courseId){
         return this.enrollmentService.getEnrollmentByUserIdAndCourseId(userId,courseId);
-
+    }
+    @DeleteMapping("/{userId}/{courseId}")
+    public void unenrollUserFromCourse(@PathVariable Long userId, @PathVariable Long courseId) {
+        enrollmentService.unenrollUserFromCourse(userId, courseId);
     }
 }
