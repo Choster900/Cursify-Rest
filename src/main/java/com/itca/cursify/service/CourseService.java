@@ -4,9 +4,11 @@ import com.itca.cursify.exceptions.ExceptionsCursify;
 import com.itca.cursify.mapper.CourseInDTOToCourse;
 import com.itca.cursify.persistece.entity.*;
 import com.itca.cursify.persistece.entity.enums.Published;
+import com.itca.cursify.persistece.repository.CategoryRepository;
 import com.itca.cursify.persistece.repository.CourseRepository;
 import com.itca.cursify.persistece.repository.UserRepository;
 import com.itca.cursify.service.dto.AllCoursesByUser;
+import com.itca.cursify.service.dto.CourseByCategory;
 import com.itca.cursify.service.dto.CourseInDTO;
 import com.itca.cursify.service.dto.CourseWithDTO;
 import org.springframework.http.HttpStatus;
@@ -22,11 +24,13 @@ public class CourseService {
     private final CourseRepository courseRepository;
     private final CourseInDTOToCourse courseInDTOToCourse;
     private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
 
-    public CourseService(CourseRepository courseRepository, CourseInDTOToCourse courseInDTOToCourse, UserRepository userRepository) {
+    public CourseService(CourseRepository courseRepository, CourseInDTOToCourse courseInDTOToCourse, UserRepository userRepository, CategoryRepository categoryRepository) {
         this.courseRepository = courseRepository;
         this.courseInDTOToCourse = courseInDTOToCourse;
         this.userRepository = userRepository;
+        this.categoryRepository = categoryRepository;
     }
 
 
@@ -71,6 +75,20 @@ public class CourseService {
             courseDTO.setCategory(course.getCategory());
             courseDTO.setCoursePublished(course.getCoursePublished());
             courseDTO.setUser(course.getCreatorUser());
+
+            //Mapear los comments
+            List<CourseWithDTO.CommentDTO> comments = new ArrayList<>();
+            for (Comment comment : course.getComments()){
+                CourseWithDTO.CommentDTO commentDTO = new CourseWithDTO.CommentDTO();
+                commentDTO.setCommentId(comment.getCommentId());
+                commentDTO.setCommentText(comment.getCommentText());
+                commentDTO.setUser(comment.getUser());
+                commentDTO.setCourse(comment.getCourse());
+                courseDTO.setCreatedAtCourse(comment.getCreatedAtComment());
+
+                comments.add(commentDTO);
+            }
+            courseDTO.setComments(comments);
 
             //Mapear los examenes
             List<CourseWithDTO.ExamDTO> examDTOList = new ArrayList<>();
@@ -183,5 +201,33 @@ public class CourseService {
 
     }
 
+    //Get course by category
+
+
+    public List<CourseByCategory> getAllCoursesByCategory(Long categoryId) {
+        Optional<Category> optionalCategory =  this.categoryRepository.findById(categoryId);
+        if (optionalCategory.isEmpty()){
+            throw new ExceptionsCursify("Category not found", HttpStatus.NOT_FOUND);
+        }
+        List<Course> courses = courseRepository.findAllByCategory(categoryId);
+        List<CourseByCategory> courseList = new ArrayList<>();
+
+        for (Course course : courses) {
+            CourseByCategory courseDTO = new CourseByCategory();
+
+            courseDTO.setCourseId(course.getCourseId());
+            courseDTO.setCourseName(course.getCourseName());
+            courseDTO.setCourseDescription(course.getCourseDescription());
+            courseDTO.setCoursePhoto(course.getCoursePhoto());
+            courseDTO.setCategory(course.getCategory());
+            courseDTO.setCoursePublished(course.getCoursePublished());
+            courseDTO.setUser(course.getCreatorUser());
+            courseDTO.setCreatedAtCourse(course.getCreatedAtCourse());
+
+            courseList.add(courseDTO);
+        }
+
+        return courseList;
+    }
 
 }

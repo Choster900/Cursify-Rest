@@ -3,6 +3,7 @@ package com.itca.cursify.controller;
 import com.itca.cursify.persistece.entity.Course;
 import com.itca.cursify.service.CourseService;
 import com.itca.cursify.service.dto.AllCoursesByUser;
+import com.itca.cursify.service.dto.CourseByCategory;
 import com.itca.cursify.service.dto.CourseInDTO;
 import com.itca.cursify.service.dto.CourseWithDTO;
 import io.swagger.annotations.Api;
@@ -22,6 +23,7 @@ public class CourseController {
         this.courseService = courseService;
     }
     @GetMapping
+    @ApiOperation(value = "Obtener los cursos por usuarios", notes = "Esta consulta obtiene todos los cursos por usuarios y sus detalles")
     public List<AllCoursesByUser> getAllCourseWithDetail(){
         return this.courseService.getAllCoursesWithDetails();
     }
@@ -73,13 +75,22 @@ public class CourseController {
     }
 
     @GetMapping("/findCourseByIdWithDetails/{courseId}")
+    @ApiOperation(value = "Obtener solamente un curso", notes = "Retorna el curso buscado por el courseId")
     public CourseWithDTO getCourseWithDetail(@PathVariable Long courseId){
         return this.courseService.getCourseWithDetailsById(courseId);
     }
 
     @GetMapping("/findCourseByUserCreatorWithDetails/{userId}")
+    @ApiOperation(value = "Obtener todos los cursos filtrados por un solo usuario", notes = "Esta consulta se usa para cuando estamos filtrando los cursos que tenemos en nuestra posecion")
     public List<CourseWithDTO> getCourseWithDetailByUserCreator(@PathVariable Long userId){
         return this.courseService.getCoursesWithDetailsByCreateUser(userId);
+    }
+
+
+    @GetMapping("/finByCategory/{categoryId}")
+    @ApiOperation(value = "Obtener todos los cursos filtrados por categoria", notes = "Esta consulta se usara cuando le den a una categoria y necesiten obtener todos los cursos filtrados por categoria")
+    public List<CourseByCategory> getAllCoursesByCategory(@PathVariable Long categoryId){
+        return this.courseService.getAllCoursesByCategory(categoryId);
     }
 
 }

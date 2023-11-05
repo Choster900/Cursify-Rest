@@ -1,9 +1,11 @@
 package com.itca.cursify.persistece.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Data
@@ -26,6 +28,11 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToMany(mappedBy = "comments", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Course> comments;
+
 
     @Column(name = "comment_text")
     private String commentText;

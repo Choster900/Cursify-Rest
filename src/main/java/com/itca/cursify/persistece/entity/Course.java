@@ -47,9 +47,17 @@ public class Course {
     @JsonIgnore
     private Set<User> enrolledUsers;
 
-    @ManyToMany(mappedBy = "commentCourse",fetch = FetchType.LAZY)
+    /*@ManyToMany(mappedBy = "commentCourse",fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<User> commentCourse;
+    private Set<Comment> commentCourse;*/
+   /* @ManyToMany(mappedBy = "comments", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Comment> comments;*/
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "course_id", referencedColumnName = "course_id")
+    @JsonIgnore
+    private List<Comment> comments = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")

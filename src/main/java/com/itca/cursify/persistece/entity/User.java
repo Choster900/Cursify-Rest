@@ -58,8 +58,9 @@ public class User {
     )
     @JsonIgnore
     private Set<Course> enrolledCourses;
+
     // De muchos a muchos a tabla comment
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+   /* @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "comment",
             joinColumns = {
                     @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
@@ -69,7 +70,7 @@ public class User {
             }
     )
     @JsonIgnore
-    private Set<Course> commentCourse;
+    private Set<Course> comments;*/
 
     @OneToMany(mappedBy = "userExamResult", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
