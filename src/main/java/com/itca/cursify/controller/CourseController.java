@@ -85,6 +85,11 @@ public class CourseController {
     public List<CourseWithDTO> getCourseWithDetailByUserCreator(@PathVariable Long userId){
         return this.courseService.getCoursesWithDetailsByCreateUser(userId);
     }
+    @GetMapping("/findEnrolledCoursesWithDetails/{userId}")
+    @ApiOperation(value = "Obtener todos los cursos donde el usuario este subscrito", notes = "Esta consulta se usa para mostrar los cursos donde el usuario que este logeado cuando vaya a ver sus cursos logeado aparescan los que tiene")
+    public List<CourseWithDTO> getEnrolledCoursesWithDetails(@PathVariable Long userId){
+        return this.courseService.getEnrolledCoursesWithDetails(userId);
+    }
     @GetMapping("/trendingTwoCourses")
     @ApiOperation(value = "Obtener los cursos mas populares", notes = "Esta consulta retorna los seis cursos con más suscripciones")
     public List<CourseList> getOnlyTwoTrendingCourses(){

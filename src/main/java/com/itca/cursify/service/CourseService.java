@@ -6,6 +6,7 @@ import com.itca.cursify.persistece.entity.*;
 import com.itca.cursify.persistece.entity.enums.Published;
 import com.itca.cursify.persistece.repository.CategoryRepository;
 import com.itca.cursify.persistece.repository.CourseRepository;
+import com.itca.cursify.persistece.repository.EnrollmentRepository;
 import com.itca.cursify.persistece.repository.UserRepository;
 import com.itca.cursify.service.dto.AllCoursesByUser;
 import com.itca.cursify.service.dto.CourseList;
@@ -31,12 +32,14 @@ public class CourseService {
     private final CourseInDTOToCourse courseInDTOToCourse;
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
-
-    public CourseService(CourseRepository courseRepository, CourseInDTOToCourse courseInDTOToCourse, UserRepository userRepository, CategoryRepository categoryRepository) {
+    private final EnrollmentRepository enrollmentRepository;
+    public CourseService(EntityManager entityManager, CourseRepository courseRepository, CourseInDTOToCourse courseInDTOToCourse, UserRepository userRepository, CategoryRepository categoryRepository, EnrollmentRepository enrollmentRepository) {
+        this.entityManager = entityManager;
         this.courseRepository = courseRepository;
         this.courseInDTOToCourse = courseInDTOToCourse;
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
+        this.enrollmentRepository = enrollmentRepository;
     }
 
 
@@ -176,6 +179,32 @@ public class CourseService {
 
         return courseDTOList;
     }
+
+    public List<CourseWithDTO> getEnrolledCoursesWithDetails(Long userId){
+
+        List<Enrollment> enrollments = enrollmentRepository.findByUserUserId(userId);
+        List<CourseWithDTO> courseDTOList = new ArrayList<>();
+
+        for (Enrollment enrollment : enrollments) {
+            CourseWithDTO courseDTO = new CourseWithDTO();
+
+            Course course = enrollment.getCourse();
+
+            courseDTO.setCourseId(course.getCourseId());
+            courseDTO.setCourseName(course.getCourseName());
+            courseDTO.setCourseDescription(course.getCourseDescription());
+            courseDTO.setCoursePhoto(course.getCoursePhoto());
+            courseDTO.setCategory(course.getCategory());
+            courseDTO.setCoursePublished(course.getCoursePublished());
+            courseDTO.setUser(course.getCreatorUser());
+            courseDTO.setCreatedAtCourse(course.getCreatedAtCourse());
+
+            courseDTOList.add(courseDTO);
+        }
+
+        return courseDTOList;
+    }
+
 
     public List<AllCoursesByUser> getAllCoursesWithDetails(){
         List<User> users =  this.userRepository.findAll();
