@@ -6,10 +6,9 @@ import com.itca.cursify.persistece.entity.enums.Published;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
-public class CourseByCategory {
+public class CourseList {
 
         private Long courseId;
         private String courseName;

@@ -8,11 +8,14 @@ import com.itca.cursify.persistece.repository.CategoryRepository;
 import com.itca.cursify.persistece.repository.CourseRepository;
 import com.itca.cursify.persistece.repository.UserRepository;
 import com.itca.cursify.service.dto.AllCoursesByUser;
-import com.itca.cursify.service.dto.CourseByCategory;
+import com.itca.cursify.service.dto.CourseList;
 import com.itca.cursify.service.dto.CourseInDTO;
 import com.itca.cursify.service.dto.CourseWithDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.*;
+import javax.persistence.EntityManager;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,6 +24,9 @@ import java.util.Optional;
 
 @Service
 public class CourseService {
+
+    @PersistenceContext
+    private EntityManager entityManager;
     private final CourseRepository courseRepository;
     private final CourseInDTOToCourse courseInDTOToCourse;
     private final UserRepository userRepository;
@@ -204,16 +210,16 @@ public class CourseService {
     //Get course by category
 
 
-    public List<CourseByCategory> getAllCoursesByCategory(Long categoryId) {
+    public List<CourseList> getAllCoursesByCategory(Long categoryId) {
         Optional<Category> optionalCategory =  this.categoryRepository.findById(categoryId);
         if (optionalCategory.isEmpty()){
             throw new ExceptionsCursify("Category not found", HttpStatus.NOT_FOUND);
         }
         List<Course> courses = courseRepository.findAllByCategory(categoryId);
-        List<CourseByCategory> courseList = new ArrayList<>();
+        List<CourseList> courseList = new ArrayList<>();
 
         for (Course course : courses) {
-            CourseByCategory courseDTO = new CourseByCategory();
+            CourseList courseDTO = new CourseList();
 
             courseDTO.setCourseId(course.getCourseId());
             courseDTO.setCourseName(course.getCourseName());
@@ -229,5 +235,68 @@ public class CourseService {
 
         return courseList;
     }
+
+    public List<CourseList> getRandomCourses() {
+        List<Course> courses = courseRepository.findRandomCourses();
+        List<CourseList> courseList = new ArrayList<>();
+
+        for (Course course : courses) {
+            CourseList courseDTO = new CourseList();
+
+            courseDTO.setCourseId(course.getCourseId());
+            courseDTO.setCourseName(course.getCourseName());
+            courseDTO.setCourseDescription(course.getCourseDescription());
+            courseDTO.setCoursePhoto(course.getCoursePhoto());
+            courseDTO.setCategory(course.getCategory());
+            courseDTO.setCoursePublished(course.getCoursePublished());
+            courseDTO.setUser(course.getCreatorUser());
+            courseDTO.setCreatedAtCourse(course.getCreatedAtCourse());
+
+            courseList.add(courseDTO);
+        }
+
+        return courseList;
+    }
+
+    //
+    public List<CourseList> getTrendingCourses() {
+        EntityManager em = entityManager.getEntityManagerFactory().createEntityManager();
+
+        String jpqlQuery = "SELECT c FROM Course c " +
+                "JOIN Enrollment e ON c.courseId = e.course.courseId " +
+                "GROUP BY c.courseId " +
+                "ORDER BY COUNT(e.enrollmentId) DESC";
+
+        TypedQuery<Course> query = em.createQuery(jpqlQuery, Course.class).setMaxResults(2);
+
+        List<Course> courses = query.getResultList();
+        List<CourseList> courseList = new ArrayList<>();
+
+        for (Course course : courses) {
+            CourseList courseDTO = new CourseList();
+
+            courseDTO.setCourseId(course.getCourseId());
+            courseDTO.setCourseName(course.getCourseName());
+            courseDTO.setCourseDescription(course.getCourseDescription());
+            courseDTO.setCoursePhoto(course.getCoursePhoto());
+            courseDTO.setCategory(course.getCategory());
+            courseDTO.setCoursePublished(course.getCoursePublished());
+            courseDTO.setUser(course.getCreatorUser());
+            courseDTO.setCreatedAtCourse(course.getCreatedAtCourse());
+
+            courseList.add(courseDTO);
+        }
+
+        em.close(); // ¡No olvides cerrar el EntityManager!
+
+        return courseList;
+    }
+
+
+
+
+
+
+
 
 }

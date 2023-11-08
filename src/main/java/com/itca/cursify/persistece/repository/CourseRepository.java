@@ -15,4 +15,7 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 
     @Query("SELECT c FROM Course c WHERE c.category.categoryId = :categoryId")
     List<Course> findAllByCategory(@Param("categoryId") Long categoryId);
+
+    @Query(value = "SELECT * FROM course ORDER BY RAND() LIMIT 6", nativeQuery = true)
+    List<Course> findRandomCourses();
 }
