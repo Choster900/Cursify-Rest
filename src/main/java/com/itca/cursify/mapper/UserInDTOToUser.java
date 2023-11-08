@@ -33,7 +33,7 @@ public class UserInDTOToUser implements IMapper<UserInDTO, User> {
         user.setUserName(in.getUserName());
         user.setUserLastName(in.getUserLastName());
         user.setUserEmail(in.getUserEmail());
-
+        user.setUserDescription(in.getUserDescription());
         String userPassword = in.getUserPassword();
         String hashedPassword = encryptService.scryptPassoword(userPassword);
         user.setUserPassword(hashedPassword);

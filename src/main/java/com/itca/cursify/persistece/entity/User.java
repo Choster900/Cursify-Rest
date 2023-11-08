@@ -30,6 +30,9 @@ public class User {
     private String userEmail;
     @Column(name = "user_password")
     private String userPassword;
+    @Column(name = "user_description")
+    private String userDescription;
+
 
     @ManyToOne
     @JoinColumn(name = "role_id") // Nombre de la columna que contendrá la clave foránea en la tabla Task

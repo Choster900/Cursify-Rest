@@ -13,5 +13,6 @@ public class UserInDTO {
     private String userLastName;
     private String userEmail;
     private String userPassword;
+    private String userDescription;
     private Long roleId;
 }
