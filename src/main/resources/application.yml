@@ -3,13 +3,13 @@ spring:
     name: cursify
   datasource:
     #url: jdbc:mysql://root:UnXJ55bdoAGHecNiQOwb@containers-us-west-59.railway.app:7699/railway
-    #url: jdbc:mysql://itca2023.cnyzc7p1tugi.us-east-1.rds.amazonaws.com/cursify
-    url: jdbc:mysql://localhost:3306/cursify
-    #username: admin
-    username: root
+    url: jdbc:mysql://itca2023.cnyzc7p1tugi.us-east-1.rds.amazonaws.com/cursify
+    #url: jdbc:mysql://localhost:3306/cursify
+    username: admin
+    #username: root
     #password: UnXJ55bdoAGHecNiQOwb
-    #password: Itca123!
-    password:
+    password: Itca123!
+    #password:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
